@@ -18,7 +18,7 @@ export default function Auth() {
   };
   const getRoutes = (routes) => {
     return routes.map((route, key) => {
-      if (route.layout === '/auth') {
+      if (route.layout === '/sign-in') {
         return (
           <Route path={`${route.path}`} element={route.component} key={key} />
         );
@@ -33,7 +33,7 @@ export default function Auth() {
   const authBg = useColorModeValue('white', 'navy.900');
   document.documentElement.dir = 'ltr';
   return (
-    <Box>
+    <Box value="iknow">
       <SidebarContext.Provider
         value={{
           toggleSidebar,
@@ -58,7 +58,7 @@ export default function Auth() {
                 {getRoutes(routes)}
                 <Route
                   path="/"
-                  element={<Navigate to="/auth/sign-in/default" replace />}
+                  element={<h3>hello</h3>}
                 />
               </Routes>
             </Box>

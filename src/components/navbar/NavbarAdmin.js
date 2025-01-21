@@ -14,7 +14,8 @@ export default function AdminNavbar(props) {
 			window.removeEventListener('scroll', changeNavbar);
 		};
 	});
-
+//brandtext is message displaying top in dashboard when page loads
+//message is hown below brandtext and secondary enables it
 	const { secondary, message, brandText } = props;
 
 	// Here are all the props that may change depending on navbar's type or state.(secondary, variant, scrolled)

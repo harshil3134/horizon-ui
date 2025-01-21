@@ -1,4 +1,3 @@
-// Chakra imports
 import { Portal, Box, useDisclosure } from '@chakra-ui/react';
 import Footer from 'components/footer/FooterAdmin.js';
 // Layout components
@@ -6,26 +5,26 @@ import Navbar from 'components/navbar/NavbarAdmin.js';
 import Sidebar from 'components/sidebar/Sidebar.js';
 import { SidebarContext } from 'contexts/SidebarContext';
 import React, { useState } from 'react';
-import { Navigate, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate,Route, Routes, useNavigate } from 'react-router-dom';
 import routes from 'routes.js';
 import { useAuth } from 'index';
 
 // Custom Chakra theme
-export default function Dashboard(props) {
+export default function CustomRoutes(props) {
   const { ...rest } = props;
   // states and functions
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
 
-const navigate=useNavigate()
+
 
 const {isAuthenticated}=useAuth()
   // functions for changing the states from components
   const getRoute = () => {
-    return window.location.pathname !== '/dashboard/full-screen-maps';
+    return window.location.pathname !== '/custom-routes/full-screen-maps';
   };
 
-  //
+  //it fetches name from the routes array
   const getActiveRoute = (routes) => {
     let activeRoute = 'Default Brand Text';
     for (let i = 0; i < routes.length; i++) {
@@ -41,11 +40,10 @@ const {isAuthenticated}=useAuth()
           return categoryActiveRoute;
         }
       } else {
-        console.log("path",routes[i].path);
         if (
-          window.location.pathname === routes[i].layout + routes[i].path
+          window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
         ) {
-          return routes[i].name;
+          return routes[i].path;
         }
       }
     }
@@ -103,11 +101,10 @@ const {isAuthenticated}=useAuth()
   };
   const getRoutes = (routes) => {
     return routes.map((route, key) => {
-      if (route.layout === '/dashboard') {
+      if (route.layout === '/custom-routes') {
         return (
-<Route path={`${route.path}`} element={route.component} key={key}/>
+          <Route path={`${route.path}`} element={route.component} key={key}/>
         )
-    
       }
       if (route.collapse) {
         return getRoutes(route.items);
@@ -167,7 +164,10 @@ const {isAuthenticated}=useAuth()
               >
                 <Routes>
                   {getRoutes(routes)}
-                  
+                  <Route
+                    path="/"
+                    element={<Navigate to="/custom-routes"  />}
+                  />
                 </Routes>
               </Box>
             ) : null}

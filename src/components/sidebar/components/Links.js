@@ -20,7 +20,14 @@ export function SidebarLinks(props) {
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
-    return location.pathname.includes(routeName);
+    const activeroute="/"+(location.pathname.split('/')[2]||"")
+    if(activeroute===routeName)
+    {
+      return true
+    }
+
+
+    
   };
 
   // this function creates the links from the secondary accordions (for example auth -> sign-in -> default)
@@ -46,11 +53,14 @@ export function SidebarLinks(props) {
             {createLinks(route.items)}
           </>
         );
-      } else if (
-        route.layout === "/admin" ||
-        route.layout === "/auth" ||
-        route.layout === "/rtl"
-      ) {
+      }
+      //else if (
+      //   route.layout === "/admin" ||
+      //   route.layout==="/dashboard"||
+      //   route.layout === "/auth" ||
+      //   route.layout === "/rtl"
+      // ) 
+      else if(route.layout!=="/custom-routes") {
         return (
           <NavLink key={index} to={route.layout + route.path}>
             {route.icon ? (

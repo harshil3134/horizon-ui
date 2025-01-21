@@ -21,7 +21,7 @@
 
 */
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
 // Chakra imports
 import {
@@ -49,7 +49,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { useAuth } from "index";
 
-function SignIn() {
+function SignUp() {
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";
@@ -70,26 +70,19 @@ function SignIn() {
   const handleClick = () => setShow(!show);
   const [email,setEmail]=useState('')
   const [password,setPassword]=useState('')
+  const navigate=useNavigate()
 
-const {login}=useAuth()
-
-const navigate=useNavigate()
+const {isAuthenticated,login}=useAuth()
 
   const handleSubmit=()=>{
-const storedemail=(localStorage.getItem(email))
-const storedpassword=(localStorage.getItem(password))
-console.log(storedemail,storedpassword);
-
-
-    if(email==storedemail && password==storedpassword)
+    if(email!=="" && password!=="")
     {
-      login()
-      localStorage.setItem('email',email)
-      navigate('/dashboard')
+      localStorage.setItem(email,password)
+     
+      
+      navigate('/sign-in')
     }
   }
-
-
 
   return (
     <DefaultAuth illustrationBackground={illustration} image={illustration}>
@@ -107,7 +100,7 @@ console.log(storedemail,storedpassword);
         flexDirection='column'>
         <Box me='auto'>
           <Heading color={textColor} fontSize='36px' mb='10px'>
-            Sign In
+            Sign Up
           </Heading>
           <Text
             mb='36px'
@@ -115,7 +108,7 @@ console.log(storedemail,storedpassword);
             color={textColorSecondary}
             fontWeight='400'
             fontSize='md'>
-            Enter your email and password to sign in!
+            Enter your email and password to sign Up!
           </Text>
         </Box>
         <Flex
@@ -248,14 +241,14 @@ console.log(storedemail,storedpassword);
             maxW='100%'
             mt='0px'>
             <Text color={textColorDetails} fontWeight='400' fontSize='14px'>
-              Not registered yet?
-              <NavLink to='/sign-up'>
+             Registered?
+              <NavLink to='/sign-in'>
                 <Text
                   color={textColorBrand}
                   as='span'
                   ms='5px'
                   fontWeight='500'>
-                  Create an Account
+                  Login
                 </Text>
               </NavLink>
             </Text>
@@ -266,4 +259,4 @@ console.log(storedemail,storedpassword);
   );
 }
 
-export default SignIn;
+export default SignUp;

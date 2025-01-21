@@ -25,7 +25,12 @@ import navImage from 'assets/img/layout/Navbar.png';
 import { MdNotificationsNone, MdInfoOutline } from 'react-icons/md';
 import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import { FaEthereum } from 'react-icons/fa';
-import routes from 'routes';
+import routes from '../../routes.js';
+
+import { useAuth } from 'index';
+import { Navigate, useNavigate } from 'react-router-dom';
+
+
 export default function HeaderLinks(props) {
   const { secondary } = props;
   const { colorMode, toggleColorMode } = useColorMode();
@@ -43,6 +48,10 @@ export default function HeaderLinks(props) {
     '14px 17px 40px 4px rgba(112, 144, 176, 0.06)',
   );
   const borderButton = useColorModeValue('secondaryGray.500', 'whiteAlpha.200');
+  const {logout}=useAuth()
+const navigate=useNavigate()
+
+
   return (
     <Flex
       w={{ sm: '100%', md: 'auto' }}
@@ -287,6 +296,15 @@ export default function HeaderLinks(props) {
               _focus={{ bg: 'none' }}
               borderRadius="8px"
               px="14px"
+              onClick={()=>navigate('/custom-routes')}
+            >
+              <Text fontSize="sm">Custom Setting</Text>
+            </MenuItem>
+            <MenuItem
+              _hover={{ bg: 'none' }}
+              _focus={{ bg: 'none' }}
+              borderRadius="8px"
+              px="14px"
             >
               <Text fontSize="sm">Newsletter Settings</Text>
             </MenuItem>
@@ -296,6 +314,7 @@ export default function HeaderLinks(props) {
               color="red.400"
               borderRadius="8px"
               px="14px"
+              onClick={()=>logout()}  
             >
               <Text fontSize="sm">Log out</Text>
             </MenuItem>
