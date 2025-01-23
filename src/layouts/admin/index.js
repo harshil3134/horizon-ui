@@ -19,7 +19,6 @@ export default function Dashboard(props) {
 
 const navigate=useNavigate()
 
-const {isAuthenticated}=useAuth()
   // functions for changing the states from components
   const getRoute = () => {
     return window.location.pathname !== '/dashboard/full-screen-maps';

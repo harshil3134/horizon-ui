@@ -48,6 +48,8 @@ import { FcGoogle } from "react-icons/fc";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { useAuth } from "index";
+import { useDispatch } from "react-redux";
+import {adduser}  from "components/store/slices/UserSlice";
 
 function SignUp() {
   // Chakra color mode
@@ -71,14 +73,17 @@ function SignUp() {
   const [email,setEmail]=useState('')
   const [password,setPassword]=useState('')
   const navigate=useNavigate()
+const dispatch=useDispatch()
 
-const {isAuthenticated,login}=useAuth()
+
 
   const handleSubmit=()=>{
     if(email!=="" && password!=="")
     {
-      localStorage.setItem(email,password)
-     
+      // localStorage.setItem(email,password)
+      const obj={'email':email,
+        pass:password}
+      dispatch(adduser(obj))
       
       navigate('/sign-in')
     }
@@ -230,7 +235,7 @@ const {isAuthenticated,login}=useAuth()
               h='50'
               mb='24px'
               onClick={()=>handleSubmit()}>
-              Sign In
+              Sign Up
               
             </Button>
           </FormControl>

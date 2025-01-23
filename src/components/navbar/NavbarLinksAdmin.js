@@ -29,6 +29,8 @@ import routes from '../../routes.js';
 
 import { useAuth } from 'index';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from 'components/store/slices/UserSlice.js';
 
 
 export default function HeaderLinks(props) {
@@ -48,7 +50,8 @@ export default function HeaderLinks(props) {
     '14px 17px 40px 4px rgba(112, 144, 176, 0.06)',
   );
   const borderButton = useColorModeValue('secondaryGray.500', 'whiteAlpha.200');
-  const {logout}=useAuth()
+const dispatch=useDispatch() 
+
 const navigate=useNavigate()
 
 
@@ -314,7 +317,7 @@ const navigate=useNavigate()
               color="red.400"
               borderRadius="8px"
               px="14px"
-              onClick={()=>logout()}  
+              onClick={()=>{dispatch(logout());navigate('/sign-in')}}  
             >
               <Text fontSize="sm">Log out</Text>
             </MenuItem>

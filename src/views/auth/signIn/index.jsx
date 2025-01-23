@@ -48,6 +48,9 @@ import { FcGoogle } from "react-icons/fc";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { useAuth } from "index";
+import { useDispatch, useSelector } from "react-redux";
+import { setcurrentuser } from "components/store/slices/UserSlice";
+import { login } from "components/store/slices/UserSlice";
 
 function SignIn() {
   // Chakra color mode
@@ -70,22 +73,34 @@ function SignIn() {
   const handleClick = () => setShow(!show);
   const [email,setEmail]=useState('')
   const [password,setPassword]=useState('')
-
-const {login}=useAuth()
-
 const navigate=useNavigate()
 
+  const dispatch=useDispatch();
+  const userdata=useSelector((state)=>{
+return state.user.userinfo;
+  })
+
+
+
   const handleSubmit=()=>{
-const storedemail=(localStorage.getItem(email))
-const storedpassword=(localStorage.getItem(password))
-console.log(storedemail,storedpassword);
+// const storedemail=(localStorage.getItem(email))
+// const storedpassword=(localStorage.getItem(password))
 
+const user_value=Object.keys(userdata).filter((item)=>item==email)
 
-    if(email==storedemail && password==storedpassword)
+console.log(user_value);
+
+if(user_value.length==0)
+{
+  return ;
+}
+    if( password==userdata[user_value])
     {
-      login()
+    
       localStorage.setItem('email',email)
-      navigate('/dashboard')
+
+      dispatch(login(email))
+     navigate('/dashboard')
     }
   }
 

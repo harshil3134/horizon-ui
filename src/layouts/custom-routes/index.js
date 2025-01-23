@@ -18,7 +18,6 @@ export default function CustomRoutes(props) {
 
 
 
-const {isAuthenticated}=useAuth()
   // functions for changing the states from components
   const getRoute = () => {
     return window.location.pathname !== '/custom-routes/full-screen-maps';
