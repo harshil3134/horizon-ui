@@ -6,8 +6,6 @@ import React, { useState } from 'react'
 function Inputform({isOpen,onClose}) {
 
 
-    const [formValues, setFormValues] = useState({ label: '' ,icon:''});
-
     function validatelabel(value) {
         let error
         if (!value) {

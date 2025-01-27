@@ -31,7 +31,7 @@ import { useAuth } from 'index';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from 'components/store/slices/UserSlice.js';
-
+import axios from 'axios';
 
 export default function HeaderLinks(props) {
   const { secondary } = props;
@@ -52,7 +52,20 @@ export default function HeaderLinks(props) {
   const borderButton = useColorModeValue('secondaryGray.500', 'whiteAlpha.200');
 const dispatch=useDispatch() 
 
+
 const navigate=useNavigate()
+
+const handlelogout=()=>{
+  
+  axios
+  .get('http://localhost:8000/api/v1/user/logout')
+  .then((res) => {console.log(res)
+    dispatch(logout());
+    navigate('/sign-in')
+  })
+  .catch((err) => console.log(err));
+
+}
 
 
   return (
@@ -317,7 +330,7 @@ const navigate=useNavigate()
               color="red.400"
               borderRadius="8px"
               px="14px"
-              onClick={()=>{dispatch(logout());navigate('/sign-in')}}  
+              onClick={()=>{handlelogout()}}  
             >
               <Text fontSize="sm">Log out</Text>
             </MenuItem>

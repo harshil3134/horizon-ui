@@ -25,7 +25,7 @@ export default function Main() {
   // eslint-disable-next-line
   const [currentTheme, setCurrentTheme] = useState(initialTheme);
 
-  const [state,setState]=useState(null)
+  
 
   const isAuth=useSelector((state)=>{
     return state.isAuthenticated;
